@@ -108,6 +108,7 @@ public class Grid : MonoBehaviour
         //Vertical Pass
         for (int y = 0; y < gridSizeY; y++)
         {
+            //Kernel pass
             for (int x = -kernelExtents; x <= kernelExtents; x++)
             {
                 int sampleX = Mathf.Clamp(x, 0, kernelExtents);
@@ -115,6 +116,7 @@ public class Grid : MonoBehaviour
                 penaltiesHorizontalPass[0, y] += grid[sampleX, y].movementPenalty;
             }
 
+            //Advance column
             for (int x = 1; x < gridSizeX; x++)
             {
                 int removeIndex = Mathf.Clamp(x - kernelExtents - 1, 0, gridSizeX);
@@ -127,6 +129,7 @@ public class Grid : MonoBehaviour
         //Horizontal Pass
         for (int x = 0; x < gridSizeX; x++)
         {
+            //Kernel Pass
             for (int y = -kernelExtents; y <= kernelExtents; y++)
             {
                 int sampleY = Mathf.Clamp(x, 0, kernelExtents);
@@ -134,6 +137,7 @@ public class Grid : MonoBehaviour
                 penaltiesVerticalPass[x, 0] += penaltiesHorizontalPass[x, sampleY];
             }
 
+            //Adavance row and add the total penalties to the blurred total
             for (int y = 1; y < gridSizeX; y++)
             {
                 int removeIndex = Mathf.Clamp(y - kernelExtents - 1, 0, gridSizeY);

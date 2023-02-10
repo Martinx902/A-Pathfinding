@@ -13,9 +13,24 @@ public class Unit : MonoBehaviour
 
     private int targetIndex;
 
-    private void Start()
+    private void Update()
     {
-        PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+
+            //Get the position of the click on the map and set the target to that position
+
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+            {
+                if (hit.collider != null)
+                {
+                    target.position = hit.point;
+
+                    PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+                }
+            }
+        }
     }
 
     private void OnPathFound(Vector3[] newPath, bool pathSuccesful)
@@ -23,6 +38,7 @@ public class Unit : MonoBehaviour
         if (pathSuccesful)
         {
             path = newPath;
+            targetIndex = 0;
             StopCoroutine("FollowPath");
             StartCoroutine("FollowPath");
         }
