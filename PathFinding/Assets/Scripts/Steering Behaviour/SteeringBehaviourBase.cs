@@ -44,7 +44,7 @@ public class SteeringBehaviourBase : MonoBehaviour
 
         //Move the body
 
-        rb.AddForce(acceleration);
+        rb.AddForce(acceleration, ForceMode.Force);
 
         //Check for the rotation of the body and add it to get the movement direction
 
