@@ -53,7 +53,7 @@ public class ArriveBehaviour : Steering
             steering.linear *= steeringbase.maxAcceleration;
         }
 
-        steering.angular = 0;
+        //steering.angular = 0;
 
         return steering;
     }

@@ -9,4 +9,9 @@ public abstract class Steering : MonoBehaviour
     public abstract SteeringData GetSteering(SteeringBehaviourBase steeringbase);
 
     public float GetWeight() => weight;
+
+    public void SetWeight(float newWeight)
+    {
+        weight = newWeight;
+    }
 }
