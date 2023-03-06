@@ -10,6 +10,16 @@ public abstract class Steering : MonoBehaviour
 
     public float GetWeight() => weight;
 
+    public void Play()
+    {
+        SetWeight(1);
+    }
+
+    public void Stop()
+    {
+        SetWeight(0);
+    }
+
     public void SetWeight(float newWeight)
     {
         weight = newWeight;

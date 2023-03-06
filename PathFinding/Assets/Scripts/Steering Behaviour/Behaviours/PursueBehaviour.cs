@@ -40,7 +40,7 @@ public class PursueBehaviour : Steering
         steering.linear = predictedTarget - transform.position;
         steering.linear.Normalize();
         steering.linear *= steeringbase.maxAcceleration;
-        steering.angular = 0;
+        //steering.angular = 0;
 
         return steering;
     }

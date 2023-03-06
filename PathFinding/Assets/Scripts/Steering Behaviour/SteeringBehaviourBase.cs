@@ -11,6 +11,9 @@ public class SteeringBehaviourBase : MonoBehaviour
     public float maxAngularAcceleration = 3f;
     public float drag = 1f;
 
+    private Vector3 olMovement;
+    private Vector3 movementInput;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -32,8 +35,6 @@ public class SteeringBehaviourBase : MonoBehaviour
             rotation += steering.angular * behaviour.GetWeight();
         }
 
-        //Checks for any other problems
-
         //If the acceleration has reached peack then normalize it and make it constant so it can only reach certain speed
 
         if (acceleration.magnitude > maxAcceleration)
@@ -44,7 +45,7 @@ public class SteeringBehaviourBase : MonoBehaviour
 
         //Move the body
 
-        rb.AddForce(acceleration, ForceMode.Force);
+        rb.velocity = acceleration;
 
         //Check for the rotation of the body and add it to get the movement direction
 

@@ -771,19 +771,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ee9fbb7adc0cdb45b61d92336660bec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayGridGizmos: 0
+  displayGridGizmos: 1
   unwalkableMask:
     serializedVersion: 2
     m_Bits: 128
   gridWorldSize: {x: 100, y: 100}
-  nodeRadius: 0.5
+  nodeRadius: 0.25
   walkableRegions:
   - terrainMask:
       serializedVersion: 2
       m_Bits: 512
     terrainPenalty: 1
-  blurPenaltyMultipliyer: 3
-  obstacleMovementPenalty: 5
+  blurPenaltyMultipliyer: 5
+  obstacleMovementPenalty: 100
 --- !u!114 &498176988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1545,7 +1545,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 828538525}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.1, y: 0.76, z: 26.2}
+  m_LocalPosition: {x: -44.2, y: 0.76, z: 23.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1651,7 +1651,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1124140980}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20.9, y: 1.7, z: 0.9}
+  m_LocalPosition: {x: 26.2, y: 1.7, z: 27.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1676,7 +1676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxAcceleration: 5
   maxAngularAcceleration: 3
-  drag: 1
+  drag: 0
 --- !u!54 &1124140987
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1738,9 +1738,9 @@ MonoBehaviour:
   bigoteDrc: {fileID: 1659132944}
   centro: {fileID: 18461616}
   speed: 5
-  lookAhead: 10
+  lookAhead: 15
   obstacleLayer: 7
-  nextWaypointDistance: 2
+  nextWaypointDistance: 1
 --- !u!114 &1124141003
 MonoBehaviour:
   m_ObjectHideFlags: 0

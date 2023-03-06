@@ -66,7 +66,7 @@ public class AvoidObstacleWithPathfinding : Steering
             steering.linear = currentMovement;
             steering.linear.Normalize();
             steering.linear *= steeringbase.maxAcceleration;
-            steering.angular = 0;
+            //steering.angular = 0;
         }
         else
         {
