@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class ConditionEntityDetected : ICondition
 {
-    private bool entitySeen = false;
-
     [SerializeField]
-    private float maxDistance = 6;
-
-    [SerializeField]
-    private float sphereRadius = 2f;
+    private float sphereRadius = 20f;
 
     [SerializeField]
     private LayerMask layerMask;
+
+    [SerializeField]
+    private TargetController targetController;
 
     public override bool Test()
     {
@@ -22,20 +20,74 @@ public class ConditionEntityDetected : ICondition
 
     private bool CheckForEntities()
     {
-        RaycastHit hit;
+        Collider[] hits = Physics.OverlapSphere(transform.position, sphereRadius, layerMask);
 
-        entitySeen = Physics.SphereCast(transform.position, sphereRadius, transform.forward, out hit, maxDistance, layerMask);
+        if (hits.Length > 0)
+        {
+            //We should select the closest entity
+            targetController.SetTarget(ReturnClosestEntity(hits).transform);
+            //targetController.SetTarget(hits[0].transform);
+            return true;
+        }
+        else if (hits.Length <= 0)
+        {
+            return false;
+        }
 
-        //Pasamos al target controller los datos de la posición del siguiente target
-        //targetController.SetTarget(hit.collider.gameObject.transform);
+        return false;
+    }
 
-        return entitySeen;
+    /// <summary>
+    /// Tomado prestado del sistema de interacción del juego del gato :3
+    /// </summary>
+    /// <param name="hits"></param>
+    /// <returns></returns>
+    private GameObject ReturnClosestEntity(Collider[] hits)
+    {
+        GameObject closestEntity;
+
+        Collider[] entities = hits;
+
+        Vector3 distance;
+
+        Vector3 tempDistance;
+
+        if (entities.Length == 0) return null;
+        else
+        {
+            closestEntity = entities[0].gameObject;
+        }
+
+        distance = entities[0].transform.position - transform.position;
+
+        foreach (Collider collider in entities)
+        {
+            //Then with those objects (Colliders due to the function only returning those) we make a basic sorting algorithm
+            // where it returns the closest one to the player
+
+            tempDistance = collider.transform.position - transform.position;
+
+            if (tempDistance.magnitude <= distance.magnitude)
+            {
+                closestEntity = collider.gameObject;
+                distance = tempDistance;
+            }
+        }
+
+        return closestEntity;
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.black;
+        if (this.gameObject.CompareTag("Human"))
+        {
+            Gizmos.color = new Color(0, 0, 1, 0.35f);
+        }
+        else
+        {
+            Gizmos.color = new Color(1, 0, 0, 0.35f);
+        }
 
-        Gizmos.DrawWireSphere(transform.position + transform.forward * maxDistance, sphereRadius);
+        Gizmos.DrawSphere(transform.position, sphereRadius);
     }
 }

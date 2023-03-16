@@ -4,19 +4,31 @@ using UnityEngine;
 
 public class FaceBehaviour : Steering
 {
-    [SerializeField] private Transform target;
+    private Transform target;
+
+    private TargetController controller;
+
+    private void Awake()
+    {
+        controller = GetComponent<TargetController>();
+    }
 
     public override SteeringData GetSteering(SteeringBehaviourBase steeringbase)
     {
         SteeringData steering = new SteeringData();
 
-        Vector3 direction = target.position - transform.position;
+        if (controller.GetTarget() != null)
+        {
+            target = controller.GetTarget();
 
-        float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            Vector3 direction = target.position - transform.position;
 
-        steering.angular = Mathf.LerpAngle(transform.rotation.eulerAngles.y, angle, steeringbase.maxAngularAcceleration * Time.deltaTime);
+            float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
 
-        //steering.linear = Vector3.zero;
+            steering.angular = Mathf.LerpAngle(transform.rotation.eulerAngles.y, angle, steeringbase.maxAngularAcceleration * Time.deltaTime);
+
+            //steering.linear = Vector3.zero;
+        }
 
         return steering;
     }

@@ -5,8 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(SteeringBehaviourBase))]
 public class FleeBehaviour : Steering
 {
-    [SerializeField]
-    private GameObject target;
+    private Transform target;
+
+    private TargetController targetController;
+
+    private void Awake()
+    {
+        targetController = GetComponent<TargetController>();
+    }
 
     public override SteeringData GetSteering(SteeringBehaviourBase steeringbase)
     {
@@ -14,10 +20,15 @@ public class FleeBehaviour : Steering
 
         //Gets the direction of the player and goes to the opposite direction
 
-        steering.linear = transform.position - target.transform.position;
-        steering.linear.Normalize();
-        steering.linear *= steeringbase.maxAcceleration;
-        steering.angular = 0;
+        if (targetController.GetTarget() != null)
+        {
+            target = targetController.GetTarget();
+            steering.linear = transform.position - target.transform.position;
+            steering.linear.Normalize();
+            steering.linear *= steeringbase.maxAcceleration;
+            steering.angular = 0;
+        }
+
         return steering;
     }
 }

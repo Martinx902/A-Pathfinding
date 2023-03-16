@@ -9,12 +9,23 @@ public class StateController : MonoBehaviour
 
     private States actualState;
 
+    [SerializeField]
+    private bool DebugEnable = false;
+
     public States GetActualState() => actualState;
 
     public void SetState(States newState)
     {
+        if (actualState == newState)
+            return;
+
         actualState = newState;
-        Debug.Log("New State recieved: " + newState);
+
+        if (DebugEnable)
+        {
+            Debug.Log("New State recieved: " + newState + " on: " + this.gameObject.name);
+        }
+
         PlaySteerings();
     }
 

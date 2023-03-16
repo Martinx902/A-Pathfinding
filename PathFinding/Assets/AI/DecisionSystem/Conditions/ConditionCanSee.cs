@@ -8,27 +8,51 @@ using System.Collections;
 /// </summary>
 public class ConditionCanSee : ICondition
 {
-    public Transform target;
+    private Transform target;
 
     /// <summary>
     /// The layer mask of entities visible
     /// </summary>
-    public LayerMask obstaclesLayerMask;
+    public int obstaclesLayerMask;
+
+    private TargetController targetController;
+
+    private void Awake()
+    {
+        targetController = FindObjectOfType<TargetController>();
+    }
 
     public override bool Test()
     {
+        target = targetController.GetTarget();
+
         if (target == null)
             return false;
 
         RaycastHit hit;
 
-        Physics.Raycast(transform.position, target.position, out hit);
+        Vector3 direction = targetController.GetTarget().position - transform.position;
 
-        if (hit.collider.gameObject.layer == obstaclesLayerMask.value)
+        Physics.Raycast(transform.position, direction, out hit);
+
+        if (hit.collider == null)
+            return false;
+
+        if (hit.collider.gameObject.layer == obstaclesLayerMask)
         {
             return true;
         }
         else
             return false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+
+        if (target == null)
+            return;
+
+        Gizmos.DrawRay(transform.position, targetController.GetTarget().position - transform.position);
     }
 }

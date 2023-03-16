@@ -418,7 +418,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 0
-  target: {fileID: 828538525}
 --- !u!135 &434955518
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1719,7 +1718,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 1
-  target: {fileID: 828538529}
 --- !u!114 &1124141002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1733,13 +1731,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 5
-  target: {fileID: 828538529}
-  bigoteIzq: {fileID: 1921713691}
-  bigoteDrc: {fileID: 1659132944}
-  centro: {fileID: 18461616}
-  speed: 5
-  lookAhead: 15
-  obstacleLayer: 7
   nextWaypointDistance: 1
 --- !u!114 &1124141003
 MonoBehaviour:
@@ -2402,7 +2393,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1930964636
 MonoBehaviour:
   m_ObjectHideFlags: 0

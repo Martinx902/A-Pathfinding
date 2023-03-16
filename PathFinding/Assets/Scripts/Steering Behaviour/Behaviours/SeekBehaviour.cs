@@ -5,8 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(SteeringBehaviourBase))]
 public class SeekBehaviour : Steering
 {
-    [SerializeField]
-    private GameObject target;
+    private Transform target;
+
+    private TargetController targetController;
+
+    private void Awake()
+    {
+        targetController = GetComponent<TargetController>();
+    }
 
     public override SteeringData GetSteering(SteeringBehaviourBase steeringbase)
     {
@@ -14,10 +20,18 @@ public class SeekBehaviour : Steering
 
         //Gets the direction of the player and aims towards it
 
-        steering.linear = target.transform.position - transform.position;
-        steering.linear.Normalize();
-        steering.linear *= steeringbase.maxAcceleration;
-        steering.angular = 0;
+        if (targetController.GetTarget() == null)
+        {
+            return steering;
+        }
+        else
+        {
+            target = targetController.GetTarget();
+            steering.linear = target.transform.position - transform.position;
+            steering.linear.Normalize();
+            steering.linear *= steeringbase.maxAcceleration;
+            steering.angular = 0;
+        }
 
         return steering;
     }

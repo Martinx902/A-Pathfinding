@@ -24,10 +24,8 @@ public class ConditionHumansScaredNear : ICondition
 
         //Check for any human that is scared depeding on their actual state
 
-        if (colliders.Length > 0)
+        if (colliders.Length > 1)
             humansScared = colliders.Any(x => x.gameObject.GetComponentInParent<StateController>().GetActualState() == States.Flee);
-        else
-            return false;
 
         return humansScared;
     }
