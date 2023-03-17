@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
 
+        simulationTime = 0f;
+
         humans = humansAlive.Count;
     }
 
@@ -56,6 +58,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Game ended");
             Time.timeScale = 0;
             onGameEnd.Invoke(simulationTime);
+            //simulationTime = 0f;
         }
     }
 
